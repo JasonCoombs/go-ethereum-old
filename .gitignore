@@ -33,3 +33,4 @@ profile.cov
 
 # IdeaIDE
 .idea
+*.swp

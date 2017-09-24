@@ -27,6 +27,7 @@ import (
 	"github.com/VentureCurrency/go-ethereum/common"
 	"github.com/VentureCurrency/go-ethereum/consensus"
 	"github.com/VentureCurrency/go-ethereum/consensus/misc"
+	"github.com/VentureCurrency/go-ethereum/consensus/ethash"
 	"github.com/VentureCurrency/go-ethereum/core"
 	"github.com/VentureCurrency/go-ethereum/core/state"
 	"github.com/VentureCurrency/go-ethereum/core/types"
@@ -461,7 +462,7 @@ func (self *worker) commitNewWork() {
 		badUncles []common.Hash
 	)
 	for hash, uncle := range self.possibleUncles {
-		if len(uncles) == self.possibleUncles {
+		if len(uncles) == ethash.MaxUncles {
 			break
 		}
 		if err := self.commitUncle(work, uncle.Header()); err != nil {

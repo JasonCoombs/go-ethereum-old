@@ -38,7 +38,7 @@ import (
 var (
 	frontierBlockReward  *big.Int = big.NewInt(0) // Block reward in wei for successfully mining a block
 	byzantiumBlockReward *big.Int = big.NewInt(0) // Block reward in wei for successfully mining a block upward from Byzantium
-	maxUncles                     = 200              // Maximum number of uncles allowed in a single block
+	MaxUncles                     = 200              // Maximum number of uncles allowed in a single block
 )
 
 // Various error messages to mark blocks invalid. These should be private to
@@ -173,7 +173,7 @@ func (ethash *Ethash) VerifyUncles(chain consensus.ChainReader, block *types.Blo
 		return nil
 	}
 	// Verify that there are at most 2 uncles included in this block
-	if len(block.Uncles()) > maxUncles {
+	if len(block.Uncles()) > MaxUncles {
 		return errTooManyUncles
 	}
 	// Gather the set of past uncles and ancestors
