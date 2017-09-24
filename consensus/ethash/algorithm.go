@@ -266,7 +266,7 @@ func generateDataset(dest []uint32, epoch uint64, cache []uint32) {
 				limit = uint32(size / hashBytes)
 			}
 			// Calculate the dataset segment
-			percent := uint32(size / hashBytes / 100)
+			percent := uint32(10)
 			for index := first; index < limit; index++ {
 				item := generateDatasetItem(cache, index, keccak512)
 				if swapped {
@@ -274,7 +274,7 @@ func generateDataset(dest []uint32, epoch uint64, cache []uint32) {
 				}
 				copy(dataset[index*hashBytes:], item)
 
-				if status := atomic.AddUint32(&progress, 1); status%percent == 0 {
+				if status := atomic.AddUint32(&progress, 1); status%percent == 1 {
 					logger.Info("Generating DAG in progress", "percentage", uint64(status*100)/(size/hashBytes), "elapsed", common.PrettyDuration(time.Since(start)))
 				}
 			}
