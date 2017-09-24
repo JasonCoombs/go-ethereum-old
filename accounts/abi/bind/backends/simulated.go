@@ -24,17 +24,17 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/VentureCurrency/go-ethereum"
+	"github.com/VentureCurrency/go-ethereum/accounts/abi/bind"
+	"github.com/VentureCurrency/go-ethereum/common"
+	"github.com/VentureCurrency/go-ethereum/common/math"
+	"github.com/VentureCurrency/go-ethereum/consensus/ethash"
+	"github.com/VentureCurrency/go-ethereum/core"
+	"github.com/VentureCurrency/go-ethereum/core/state"
+	"github.com/VentureCurrency/go-ethereum/core/types"
+	"github.com/VentureCurrency/go-ethereum/core/vm"
+	"github.com/VentureCurrency/go-ethereum/ethdb"
+	"github.com/VentureCurrency/go-ethereum/params"
 )
 
 // This nil assignment ensures compile time that SimulatedBackend implements bind.ContractBackend.

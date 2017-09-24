@@ -26,12 +26,12 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/internal/debug"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/VentureCurrency/go-ethereum/core"
+	"github.com/VentureCurrency/go-ethereum/core/types"
+	"github.com/VentureCurrency/go-ethereum/internal/debug"
+	"github.com/VentureCurrency/go-ethereum/log"
+	"github.com/VentureCurrency/go-ethereum/node"
+	"github.com/VentureCurrency/go-ethereum/rlp"
 )
 
 const (

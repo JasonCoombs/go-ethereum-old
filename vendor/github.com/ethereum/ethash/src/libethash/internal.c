@@ -155,17 +155,20 @@ bool ethash_compute_full_data(
 	}
 	uint32_t const max_n = (uint32_t)(full_size / sizeof(node));
 	node* full_nodes = mem;
-	double const progress_change = 1.0f / max_n;
-	double progress = 0.0f;
+	uint8_t progress = 0; // progress in 1% increments up to 100%
+	uint8_t newprogress = 0;
+
 	// now compute full nodes
 	for (uint32_t n = 0; n != max_n; ++n) {
+		newprogress = ceil(n / max_n * 100);
+		if(newprogress > progress) {
+			progress = newprogress;
+
 		if (callback &&
-			n % (max_n / 100) == 0 &&
-			callback((unsigned int)(ceil(progress * 100.0f))) != 0) {
+			callback(progress) != 0) {
 
 			return false;
-		}
-		progress += progress_change;
+		}}
 		ethash_calculate_dag_item(&(full_nodes[n]), n, light);
 	}
 	return true;

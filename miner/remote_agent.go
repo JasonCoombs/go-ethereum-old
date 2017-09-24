@@ -23,11 +23,11 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/consensus"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/VentureCurrency/go-ethereum/common"
+	"github.com/VentureCurrency/go-ethereum/consensus"
+	"github.com/VentureCurrency/go-ethereum/consensus/ethash"
+	"github.com/VentureCurrency/go-ethereum/core/types"
+	"github.com/VentureCurrency/go-ethereum/log"
 )
 
 type hashrate struct {

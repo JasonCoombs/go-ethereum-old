@@ -24,21 +24,21 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/consensus"
-	"github.com/ethereum/go-ethereum/consensus/misc"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/VentureCurrency/go-ethereum/common"
+	"github.com/VentureCurrency/go-ethereum/common/math"
+	"github.com/VentureCurrency/go-ethereum/consensus"
+	"github.com/VentureCurrency/go-ethereum/consensus/misc"
+	"github.com/VentureCurrency/go-ethereum/core/state"
+	"github.com/VentureCurrency/go-ethereum/core/types"
+	"github.com/VentureCurrency/go-ethereum/params"
 	set "gopkg.in/fatih/set.v0"
 )
 
 // Ethash proof-of-work protocol constants.
 var (
-	frontierBlockReward  *big.Int = big.NewInt(5e+18) // Block reward in wei for successfully mining a block
-	byzantiumBlockReward *big.Int = big.NewInt(3e+18) // Block reward in wei for successfully mining a block upward from Byzantium
-	maxUncles                     = 2                 // Maximum number of uncles allowed in a single block
+	frontierBlockReward  *big.Int = big.NewInt(0) // Block reward in wei for successfully mining a block
+	byzantiumBlockReward *big.Int = big.NewInt(0) // Block reward in wei for successfully mining a block upward from Byzantium
+	maxUncles                     = 200              // Maximum number of uncles allowed in a single block
 )
 
 // Various error messages to mark blocks invalid. These should be private to
@@ -537,6 +537,7 @@ func AccumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 	reward := new(big.Int).Set(blockReward)
 	r := new(big.Int)
 	for _, uncle := range uncles {
+		// presently the VentureCurrency mining reward for uncles is also zero
 		r.Add(uncle.Number, big8)
 		r.Sub(r, header.Number)
 		r.Mul(r, blockReward)

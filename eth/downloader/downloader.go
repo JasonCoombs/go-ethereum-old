@@ -27,13 +27,13 @@ import (
 	"sync/atomic"
 	"time"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/params"
+	ethereum "github.com/VentureCurrency/go-ethereum"
+	"github.com/VentureCurrency/go-ethereum/common"
+	"github.com/VentureCurrency/go-ethereum/core/types"
+	"github.com/VentureCurrency/go-ethereum/ethdb"
+	"github.com/VentureCurrency/go-ethereum/event"
+	"github.com/VentureCurrency/go-ethereum/log"
+	"github.com/VentureCurrency/go-ethereum/params"
 	"github.com/rcrowley/go-metrics"
 )
 
@@ -210,7 +210,7 @@ func New(mode SyncMode, stateDb ethdb.Database, mux *event.TypeMux, chain BlockC
 		mode:           mode,
 		stateDB:        stateDb,
 		mux:            mux,
-		queue:          newQueue(),
+		queue:          newQueue(dropPeer),
 		peers:          newPeerSet(),
 		rttEstimate:    uint64(rttMaxEstimate),
 		rttConfidence:  uint64(1000000),

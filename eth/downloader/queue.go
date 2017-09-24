@@ -25,9 +25,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/VentureCurrency/go-ethereum/common"
+	"github.com/VentureCurrency/go-ethereum/core/types"
+	"github.com/VentureCurrency/go-ethereum/log"
 	"github.com/rcrowley/go-metrics"
 	"gopkg.in/karalabe/cookiejar.v2/collections/prque"
 )
@@ -93,10 +93,11 @@ type queue struct {
 	lock   *sync.Mutex
 	active *sync.Cond
 	closed bool
+	dropPeer peerDropFn
 }
 
 // newQueue creates a new download queue for scheduling block retrieval.
-func newQueue() *queue {
+func newQueue(dropPeer peerDropFn) *queue {
 	lock := new(sync.Mutex)
 	return &queue{
 		headerPendPool:   make(map[string]*fetchRequest),
@@ -112,6 +113,7 @@ func newQueue() *queue {
 		resultCache:      make([]*fetchResult, blockCacheLimit),
 		active:           sync.NewCond(lock),
 		lock:             lock,
+		dropPeer:	  dropPeer,
 	}
 }
 
@@ -501,13 +503,17 @@ func (q *queue) reserveHeaders(p *peerConnection, count int, taskPool map[common
 				Header:  header,
 			}
 		}
-		// If this fetch task is a noop, skip this fetch operation
+		// If this fetch task is a noop, skip this fetch operation and unregister the peer
 		if isNoop(header) {
 			donePool[header.Hash()] = struct{}{}
 			delete(taskPool, header.Hash())
 
 			space, proc = space-1, proc-1
 			q.resultCache[index].Pending--
+
+			// Don't accept any blocks from a peer that is trying to send empty blocks
+			q.dropPeer(p.id)
+
 			progress = true
 			continue
 		}

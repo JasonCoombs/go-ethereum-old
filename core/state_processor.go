@@ -19,14 +19,14 @@ package core
 import (
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/consensus"
-	"github.com/ethereum/go-ethereum/consensus/misc"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/VentureCurrency/go-ethereum/common"
+	"github.com/VentureCurrency/go-ethereum/consensus"
+	"github.com/VentureCurrency/go-ethereum/consensus/misc"
+	"github.com/VentureCurrency/go-ethereum/core/state"
+	"github.com/VentureCurrency/go-ethereum/core/types"
+	"github.com/VentureCurrency/go-ethereum/core/vm"
+	"github.com/VentureCurrency/go-ethereum/crypto"
+	"github.com/VentureCurrency/go-ethereum/params"
 )
 
 // StateProcessor is a basic Processor, which takes care of transitioning

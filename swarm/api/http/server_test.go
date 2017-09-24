@@ -26,11 +26,11 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/swarm/api"
-	swarm "github.com/ethereum/go-ethereum/swarm/api/client"
-	"github.com/ethereum/go-ethereum/swarm/storage"
-	"github.com/ethereum/go-ethereum/swarm/testutil"
+	"github.com/VentureCurrency/go-ethereum/common"
+	"github.com/VentureCurrency/go-ethereum/swarm/api"
+	swarm "github.com/VentureCurrency/go-ethereum/swarm/api/client"
+	"github.com/VentureCurrency/go-ethereum/swarm/storage"
+	"github.com/VentureCurrency/go-ethereum/swarm/testutil"
 )
 
 func TestBzzrGetPath(t *testing.T) {

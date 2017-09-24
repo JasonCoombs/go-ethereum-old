@@ -20,12 +20,12 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/accounts/keystore"
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/console"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/VentureCurrency/go-ethereum/accounts"
+	"github.com/VentureCurrency/go-ethereum/accounts/keystore"
+	"github.com/VentureCurrency/go-ethereum/cmd/utils"
+	"github.com/VentureCurrency/go-ethereum/console"
+	"github.com/VentureCurrency/go-ethereum/crypto"
+	"github.com/VentureCurrency/go-ethereum/log"
 	"gopkg.in/urfave/cli.v1"
 )
 

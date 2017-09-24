@@ -26,19 +26,26 @@
 #include <stddef.h>
 #include "compiler.h"
 
-#define ETHASH_REVISION 23
-#define ETHASH_DATASET_BYTES_INIT 1073741824U // 2**30
-#define ETHASH_DATASET_BYTES_GROWTH 8388608U  // 2**23
-#define ETHASH_CACHE_BYTES_INIT 1073741824U // 2**24
-#define ETHASH_CACHE_BYTES_GROWTH 131072U  // 2**17
-#define ETHASH_EPOCH_LENGTH 30000U
-#define ETHASH_MIX_BYTES 128
-#define ETHASH_HASH_BYTES 64
-#define ETHASH_DATASET_PARENTS 256
-#define ETHASH_CACHE_ROUNDS 3
-#define ETHASH_ACCESSES 64
+// Follows Sergio's "STRICT MEMORY HARD HASHING FUNCTIONS" (2014)
+// https://bitslog.files.wordpress.com/2013/12/memohash-v0-3.pdf
+// SeqMemoHash(s, R, N)
+
+#define ETHASH_REVISION 1001 // VentureCurrency v1 - minimize RAM used in STRICT MEMORY HARD HASHING FUNCTION, dataset & cache sizes
+// The cache size and dataset size both grow linearly; however, we always take the highest prime below the initial
+// or linearly growing threshold in order to reduce the risk of accidental regularities leading to cyclic behavior.
+// see https://github.com/ethereum/wiki/wiki/Ethash
+#define ETHASH_DATASET_BYTES_INIT 384U 	// first prime below 2**9 multiplied by ETHASH_MIX_BYTES
+#define ETHASH_DATASET_BYTES_GROWTH 32U // 2**5
+#define ETHASH_CACHE_BYTES_INIT 384U 	// first prime below 2**9 multiplied by ETHASH_MIX_BYTES
+#define ETHASH_CACHE_BYTES_GROWTH 32U 	// 2**5
+#define ETHASH_EPOCH_LENGTH 30000U		// blocks per epoch
+#define ETHASH_MIX_BYTES 128			// width of mix (must be a multiple of 4 and >= 64 per compile-time settings, NODE_WORDS, internal.h)
+#define ETHASH_HASH_BYTES 64			// hash length in bytes (64 bytes = 512 bits)
+#define ETHASH_DATASET_PARENTS 3		// number of parents of each dataset element
+#define ETHASH_CACHE_ROUNDS 1			// number of rounds in cache production
+#define ETHASH_ACCESSES 1				// number of accesses in hashimoto loop
 #define ETHASH_DAG_MAGIC_NUM_SIZE 8
-#define ETHASH_DAG_MAGIC_NUM 0xFEE1DEADBADDCAFE
+#define ETHASH_DAG_MAGIC_NUM 0xADDADDADDADDADAC
 
 #ifdef __cplusplus
 extern "C" {

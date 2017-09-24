@@ -21,10 +21,10 @@ import (
 	"os/signal"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/console"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/VentureCurrency/go-ethereum/cmd/utils"
+	"github.com/VentureCurrency/go-ethereum/console"
+	"github.com/VentureCurrency/go-ethereum/node"
+	"github.com/VentureCurrency/go-ethereum/rpc"
 	"gopkg.in/urfave/cli.v1"
 )
 
