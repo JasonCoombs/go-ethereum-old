@@ -20,7 +20,7 @@ package params
 // the main Ethereum network.
 var MainnetBootnodes = []string{
 	// VentureCurrency Fork of Ethereum - Go Bootnodes
-	"enode://@54.241.36.138:13332", // USA-WEST
+	"enode://c28a44da72a018183f21124ac38fe73a1947ab41d86bce375b99afc238e6f9299cd0084125d228c6c290a8946ce3ab6e9e28192c4135763f7913175472015330@54.241.36.138:13332", // USA-WEST
 	"enode://@127.0.0.1:13332", // USA-EAST
 	"enode://@127.0.0.1:13332",  // EUROPE-GERMANY
 	"enode://@127.0.0.1:13332", // BREXIT-LONDON

@@ -20,7 +20,7 @@ package core
 // Their content is an RLP-encoded list of (address, balance) tuples.
 // Use mkalloc.go to create/update them.
 
-const mainnetAllocData = ""
+const mainnetAllocData = "\xf8:\u0714\xd6\xf4\xa7\xb1/\xf9\x11\xcfZ\x93>\xe5V>\x8f\xab\u007f!\v\xa9\x86\x02\xd9\x10\u038f1\u0714\xec\x16\xdc&\xcb\u0131\x82\x81\xeb\xfa\xd1?/\xb8\xecQu\xd6\u00c6\x03\a\xa1\xbc_1"
 const testnetAllocData = ""
 const rinkebyAllocData = ""
 const devAllocData = ""
