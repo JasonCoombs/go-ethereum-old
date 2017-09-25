@@ -478,17 +478,22 @@ func (self *worker) commitNewWork() {
 	for _, hash := range badUncles {
 		delete(self.possibleUncles, hash)
 	}
-	// Create the new block to seal with the consensus engine
-	if work.Block, err = self.engine.Finalize(self.chain, header, work.state, work.txs, uncles, work.receipts); err != nil {
-		log.Error("Failed to finalize block for sealing", "err", err)
-		return
+	// Abort block creation if we have no transactions to seal, else create the new block to seal with the consensus engine
+	if work.tcount > 0 {
+		if work.Block, err = self.engine.Finalize(self.chain, header, work.state, work.txs, uncles, work.receipts); err != nil {
+			log.Error("Failed to finalize block for sealing", "err", err)
+			return
+		}
+		// We only care about logging if we're actually mining.
+		if atomic.LoadInt32(&self.mining) == 1 {
+			log.Info("Commit new VentureCurrency mining work", "number", work.Block.Number(), "txs", work.tcount, "uncles", len(uncles), "elapsed", common.PrettyDuration(time.Since(tstart)))
+			self.unconfirmed.Shift(work.Block.NumberU64() - 1)
+		}
+		self.push(work)
+	} else { // no longer mining. mining should resume automatically when new transactions arrive but each user sets their own mining policy currently.
+		atomic.StoreInt32(&self.mining, 0)	// v0.1 of VentureCurrency requires user to issue > miner.start(1) function call in geth console.
+		atomic.StoreInt32(&self.atWork, 0)	// when the transaction queue is ready to be turned into a new block.
 	}
-	// We only care about logging if we're actually mining.
-	if atomic.LoadInt32(&self.mining) == 1 {
-		log.Info("Commit new VentureCurrency mining work", "number", work.Block.Number(), "txs", work.tcount, "uncles", len(uncles), "elapsed", common.PrettyDuration(time.Since(tstart)))
-		self.unconfirmed.Shift(work.Block.NumberU64() - 1)
-	}
-	self.push(work)
 }
 
 func (self *worker) commitUncle(work *Work, uncle *types.Header) error {
