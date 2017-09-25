@@ -170,10 +170,13 @@ func NewProtocolManager(config *params.ChainConfig, mode downloader.SyncMode, ne
 		return blockchain.CurrentBlock().NumberU64()
 	}
 	inserter := func(blocks types.Blocks) (int, error) {
-		// If fast sync is running, deny importing weird blocks
-		if atomic.LoadUint32(&manager.fastSync) == 1 {
-			log.Warn("Discarded bad propagated block", "number", blocks[0].Number(), "hash", blocks[0].Hash())
+		// If fast sync is running, deny importing blocks, unless fast sync is already sync'ed at genesis
+		if atomic.LoadUint32(&manager.fastSync) == 1 && blocks[0].Number().Int64() > 1 {
+			log.Warn("Discarded propagated block, fast sync in progress...", "number", blocks[0].Number(), "hash", blocks[0].Hash())
 			return 0, nil
+		} else {
+			manager.fastSync = uint32(0)
+			mode = downloader.FullSync
 		}
 		atomic.StoreUint32(&manager.acceptTxs, 1) // Mark initial sync done on any fetcher import
 		return manager.blockchain.InsertChain(blocks)
